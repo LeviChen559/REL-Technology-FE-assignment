@@ -5,11 +5,11 @@ export interface iPosts {
   body: string
 }
 export interface iComments {
-  id: number,
+  id?: number,
   postId?: number,
-  name: string,
-  email: number,
-  body: string
+  name?: string,
+  email?: string,
+  body?: string
 }
 export interface iUsers {
   id: number,
@@ -23,11 +23,12 @@ export interface iUsers {
 }
 export interface iAllData {
   id: number,
-  username: string,
-  email: string,
-  post_title: string,
-  post_body: string
-  comments: string
+  username: string| undefined,
+  email: string | undefined,
+  post_title: string ,
+  post_body: string ,
+  comments:iComments|undefined
+ 
 }
 
 export interface iAllData2 {

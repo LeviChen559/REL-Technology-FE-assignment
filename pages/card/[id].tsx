@@ -18,12 +18,12 @@ export default function CardDetail() {
     const [users, setUsers] = useState<iUsers>({ 
       id: 0,name: "",username: "", email: "", address: "",phone: "", website: "",company: ""})
 
-      if(id){
-      const {isLoading,apiData,serverError}=useFetch(`${process.env.NEXT_PUBLIC_API}/posts?id=${id}`)
-      console.log("apiData",apiData)
-      setPosts(apiData)
+      // if(id){
+      // const {isLoading,apiData,serverError}=useFetch(`${process.env.NEXT_PUBLIC_API}/posts?id=${id}`)
+      // console.log("apiData",apiData)
+      // setPosts(apiData)
     
-      }
+      // }
     
 
     useEffect(()=>{

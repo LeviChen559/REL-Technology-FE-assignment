@@ -5,12 +5,10 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { iComments, iUsers, iAllData } from "../../utility/type"
-import { ButtonBaseActions } from '@mui/material';
+import Box from '@mui/material/Box';
 
 interface CardProps {
   cardPost: iAllData;
-  cardComments?: iComments,
-  cardUser?: iUsers,
   innerRef?: any,
   onClick:() => {}
 }
@@ -76,11 +74,19 @@ interface CardsProps {
             {cardPost.post_body}
             <br />
           </Typography>
-          <Typography variant="body2">
+          <Box>
             <Typography component="span" sx={{ fontWeight: 700, fontSize: 12 }}>comments:</Typography>
-            <br />
-            {cardPost.comments}
-          </Typography>
+            { cardPost.comments&&(cardPost.comments).map((comment:iComments,index:number)=>{
+            return <div key={index}>
+            <Typography  sx={{ fontSize: 12, fontWeight:600}} >
+              {comment.name}
+            </Typography>
+            <Typography  sx={{ fontSize: 12, }} >
+              {comment.body}
+            </Typography>
+            </div>
+            })}
+          </Box>
         </CardContent>
         <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Button size="small" onClick={showDetail}>Close</Button>

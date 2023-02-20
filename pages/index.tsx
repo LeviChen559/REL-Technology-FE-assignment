@@ -16,14 +16,15 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(false)
   const [startNum, setStartNum] = useState<number>(start);
   const [endNum, setEndNum] = useState<number>(end);
-
+  // const executedRef = useRef(false)
 
   const loadPostData = async () => {
     const postsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/posts`)
     setLoading(true)
     setPosts(postsData.slice(0, endNum))
-    if(posts.length === 100){
-      setLoading(false)}
+    if (posts.length === 100) {
+      setLoading(false)
+    }
   }
   const loadOtherData = async () => {
     const commentsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/comments`)
@@ -36,11 +37,13 @@ export default function Home() {
 
 
   useEffect(() => {
+    // if (executedRef.current) { return }
     loadPostData()
-    console.log(posts)
-
+    // executedRef.current = true
   }, [startNum, endNum]);
 
+  console.log(posts)
+  console.log("users", users)
 
   const observer = useRef<IntersectionObserver | null>(null);
   const lastBookElementRef = useCallback((node: any) => {
@@ -60,20 +63,44 @@ export default function Home() {
     if (node) observer.current.observe(node)
   }, [])
 
+  // const selectComments:iComments[] =[]
+  // for (const comment of comments) {
+  //   for (const post of posts) {
+  //     if (comment.postId===post.id) {
+  //       selectComments.push(comment);
+  //       break;
+  //     }
+  //   }
+  // }
+  // console.log("selectUser",selectUser?.username)
+  // console.log("selectComments",selectComments)
+
+
 
   const newPostsFormat = useMemo(() => posts.map((post: iPosts) => {
-    let selectUserData = users.filter((user: iUsers) => user.id == post.userId);
-    let selectUserName = selectUserData.map((user: iUsers) => user.username).join();
-    let selectUserEmail = selectUserData.map((user: iUsers) => user.email).join();
-    let selectCommentData = comments.filter((comment: iComments) => comment.postId == post.id);
-    let selectComments = selectCommentData.map((comment: iComments) => comment.body).join();
+    const selectUsers: iUsers[] = []
+    for (const user of users) {
+      for (const post of posts) {
+        if (user.id === post.userId) {
+          selectUsers.push(user);
+          break;
+        }
+      }
+    }
+    const selectUser = selectUsers[0]
+
+    const selectCommentData = comments.filter((comment: iComments) => comment.postId == post.id);
+    
+
+    // console.log("selectCommentData",selectCommentData)
     return {
       id: post.id,
-      username: selectUserName,
-      email: selectUserEmail,
+      username: selectUser?.username,
+      email: selectUser?.email,
       post_title: post.title,
       post_body: post.body,
-      comments: selectComments
+      comments: selectCommentData
+    
     };
   }), [posts, users, comments]);
 
@@ -91,7 +118,7 @@ export default function Home() {
         <TogglePageButton />
         <p> {!loading && 'Loading...'}</p>
         <BasicCards cardList={newPostsFormat} lastBookElementRef={lastBookElementRef} onClick={loadOtherData} />
-        <div style={{ display:"flex",justifyContent:"center", marginBottom: 25 }}>  {loading && <ProgressBar />}</div>
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: 25 }}>  {loading && <ProgressBar />}</div>
         <p style={{ textAlign: "center", marginBottom: 25 }}> {!loading && 'End of Posts.'}</p>
       </div>
     </Container>

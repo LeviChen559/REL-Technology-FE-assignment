@@ -56,7 +56,7 @@ export default function Home() {
     if (executedRef.current) { return }
     loadAllData()
     executedRef.current = true
-  }, [loading,loadAllData]);
+  }, []);
   
 
   const observer = useRef<IntersectionObserver | null>(null);
@@ -73,7 +73,7 @@ export default function Home() {
       }
     })
     if (node) observer.current.observe(node)
-  }, [loadAllData])
+  }, [])
 
 
 

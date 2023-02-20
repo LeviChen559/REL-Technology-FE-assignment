@@ -40,7 +40,7 @@ export default function Home() {
 
     loadPostData()
    
-  }, [ endNum,loadPostData]);
+  }, [ endNum]);
 
   console.log(posts)
   console.log("users", users)

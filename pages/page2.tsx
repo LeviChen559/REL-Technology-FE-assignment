@@ -73,7 +73,7 @@ export default function Home() {
       }
     })
     if (node) observer.current.observe(node)
-  }, [loading,loadAllData])
+  }, [loadAllData])
 
 
 

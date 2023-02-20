@@ -14,7 +14,7 @@ export default function Home() {
   const [users, setUsers] = useState<iUsers[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const executedRef = useRef(false)
-  const loadAllData = async () => {
+  const loadAllData = useCallback(() => {async () => {
     const postsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/posts`)
     const commentsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/comments`)
     const usersData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/users`);
@@ -50,13 +50,13 @@ export default function Home() {
 
     setComments(commentsData)
     setUsers(usersData)
-  }
+  }},[])
 
   useEffect(() => {
     if (executedRef.current) { return }
     loadAllData()
     executedRef.current = true
-  }, [posts]);
+  }, [loading,loadAllData]);
   
 
   const observer = useRef<IntersectionObserver | null>(null);
@@ -73,7 +73,7 @@ export default function Home() {
       }
     })
     if (node) observer.current.observe(node)
-  }, [])
+  }, [loading,loadAllData])
 
 
 

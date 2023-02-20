@@ -12,10 +12,7 @@ interface CardProps {
   cardUser?: iUsers,
   innerRef?: any
 }
-interface postCardProps {
-  main: string,
-  detail: string
-}
+
 interface CardsProps {
   cardList: Array<iPosts>,
   lastBookElementRef: any
@@ -24,10 +21,6 @@ interface CardsProps {
 
  const BasicCard: FC<CardProps> = ({ cardPost, innerRef }) => {
   const router = useRouter()
-  const [postCard, setPostCard] = useState<postCardProps>({
-    main: "block",
-    detail: "none"
-  })
 
   const buttonClick = () => {
     router.push(`/card/${cardPost.id}`)

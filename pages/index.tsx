@@ -16,16 +16,16 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(false)
   const [startNum, setStartNum] = useState<number>(start);
   const [endNum, setEndNum] = useState<number>(end);
-  // const executedRef = useRef(false)
 
-  const loadPostData = async () => {
+
+  const loadPostData = useCallback(() => {async () => {
     const postsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/posts`)
     setLoading(true)
     setPosts(postsData.slice(0, endNum))
     if (posts.length === 100) {
       setLoading(false)
     }
-  }
+  }},[])
   const loadOtherData = async () => {
     const commentsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/comments`)
     const usersData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/users`);
@@ -37,10 +37,10 @@ export default function Home() {
 
 
   useEffect(() => {
-    // if (executedRef.current) { return }
+
     loadPostData()
-    // executedRef.current = true
-  }, [startNum, endNum]);
+   
+  }, [ posts.length,endNum,loadPostData]);
 
   console.log(posts)
   console.log("users", users)
@@ -61,7 +61,7 @@ export default function Home() {
       }
     })
     if (node) observer.current.observe(node)
-  }, [])
+  }, [loading])
 
   // const selectComments:iComments[] =[]
   // for (const comment of comments) {

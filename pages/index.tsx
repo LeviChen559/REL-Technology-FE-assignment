@@ -67,12 +67,15 @@ export default function Home() {
   // for (const comment of comments) {
   //   for (const post of posts) {
   //     if (comment.postId===post.id) {
+  //       for(let i =1;i<5;i++){     
   //       selectComments.push(comment);
+  //       console.log(selectComments[i])
+  //     }
   //       break;
   //     }
   //   }
   // }
-  // console.log("selectUser",selectUser?.username)
+
   // console.log("selectComments",selectComments)
 
 
@@ -92,7 +95,7 @@ export default function Home() {
     const selectCommentData = comments.filter((comment: iComments) => comment.postId == post.id);
     
 
-    // console.log("selectCommentData",selectCommentData)
+    console.log("selectCommentData",selectCommentData)
     return {
       id: post.id,
       username: selectUser?.username,

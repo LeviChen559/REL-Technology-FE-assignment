@@ -76,7 +76,7 @@ interface CardsProps {
           </Typography>
           <Box>
             <Typography component="span" sx={{ fontWeight: 700, fontSize: 12 }}>comments:</Typography>
-            { cardPost.comments&&(cardPost.comments).map((comment:iComments,index:number)=>{
+            { cardPost.comments&&(cardPost.comments).map((comment,index:number)=>{
             return <div key={index}>
             <Typography  sx={{ fontSize: 12, fontWeight:600}} >
               {comment.name}

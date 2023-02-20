@@ -5,6 +5,7 @@ export interface iPosts {
   body: string
 }
 export interface iComments {
+  map(arg0: (comment: iComments, index: number) => JSX.Element): import("react").ReactNode
   id?: number,
   postId?: number,
   name?: string,
@@ -23,11 +24,11 @@ export interface iUsers {
 }
 export interface iAllData {
   id: number,
-  username: string| undefined,
-  email: string | undefined,
+  username?: string| undefined,
+  email?: string | undefined,
   post_title: string ,
   post_body: string ,
-  comments:iComments|undefined
+  comments?:iComments|undefined
  
 }
 

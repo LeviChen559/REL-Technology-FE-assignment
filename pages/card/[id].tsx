@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/router';
 import { loadDataApi } from '@/pages/api/loadData';
 import {iPosts, iUsers,iComments} from "../../utility/type/index"
-import { useFetch } from '../api/useFetch';
+
 
 export default function CardDetail() {
     const router=useRouter()
@@ -18,12 +18,7 @@ export default function CardDetail() {
     const [users, setUsers] = useState<iUsers>({ 
       id: 0,name: "",username: "", email: "", address: "",phone: "", website: "",company: ""})
 
-      // if(id){
-      // const {isLoading,apiData,serverError}=useFetch(`${process.env.NEXT_PUBLIC_API}/posts?id=${id}`)
-      // console.log("apiData",apiData)
-      // setPosts(apiData)
-    
-      // }
+
     
 
     useEffect(()=>{

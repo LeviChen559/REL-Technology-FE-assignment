@@ -1,36 +1,45 @@
-import React, { FC, useState } from 'react';
-import Box from '@mui/material/Box';
+import React, { FC, useState,MouseEvent } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { iComments, iUsers, iAllData } from "../../utility/type"
+import { ButtonBaseActions } from '@mui/material';
 
-interface Props {
+interface CardProps {
   cardPost: iAllData;
   cardComments?: iComments,
   cardUser?: iUsers,
-  innerRef?: any
+  innerRef?: any,
+  onClick:() => {}
 }
 interface postCardProps {
   main: string,
   detail: string
 }
+interface CardsProps {
+  cardList: Array<iAllData>,
+  lastBookElementRef: any,
+  onClick:() => {}
+}
 
 
-const BasicCard: FC<Props> = ({ cardPost, innerRef }) => {
+ const BasicCard: FC<CardProps> = ({ cardPost, innerRef,onClick }) => {
 
   const [postCard, setPostCard] = useState<postCardProps>({
     main: "block",
     detail: "none"
   })
 
-  const buttonClick = () => {
+  const showDetail = () => {
     if (postCard.main === "block") {
       setPostCard({ main: "none", detail: "block" })
-    } else
+      onClick()
+  
+    } else {
       setPostCard({ main: "block", detail: "none" })
+    }
   }
 
   return (
@@ -49,7 +58,7 @@ const BasicCard: FC<Props> = ({ cardPost, innerRef }) => {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button size="small" onClick={buttonClick}>Learn More</Button>
+          <Button size="small" onClick={showDetail}>Learn More</Button>
         </CardActions>
       </div>
       <div style={{ display: postCard.detail }}>
@@ -74,11 +83,27 @@ const BasicCard: FC<Props> = ({ cardPost, innerRef }) => {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button size="small" onClick={buttonClick}>Close</Button>
+          <Button size="small" onClick={showDetail}>Close</Button>
         </CardActions>
       </div>
     </Card>
   );
 }
 
-export default BasicCard
+
+export const BasicCards: FC<CardsProps> = ({ cardList, lastBookElementRef,onClick }) => {
+
+  return <>
+
+      {cardList.map((card: iAllData, key: number) => {
+          if (cardList.length === key + 1) {
+              return <BasicCard key={card.id} cardPost={card} innerRef={lastBookElementRef} onClick={onClick}/>
+
+          } else {
+
+              return <BasicCard key={card.id} cardPost={card} onClick={onClick}/>
+          }
+      })}
+  </>
+
+}

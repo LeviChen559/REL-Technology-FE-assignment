@@ -61,7 +61,7 @@ export default function Home() {
       }
     })
     if (node) observer.current.observe(node)
-  }, [loading])
+  }, [])
 
   // const selectComments:iComments[] =[]
   // for (const comment of comments) {

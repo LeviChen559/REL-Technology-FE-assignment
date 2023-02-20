@@ -14,7 +14,7 @@ export default function Home() {
   const [users, setUsers] = useState<iUsers[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const executedRef = useRef(false)
-  const loadAllData = useCallback(() => {async () => {
+  const loadAllData = async () => {
     const postsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/posts`)
     const commentsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/comments`)
     const usersData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/users`);
@@ -50,7 +50,7 @@ export default function Home() {
 
     setComments(commentsData)
     setUsers(usersData)
-  }},[])
+  }
 
   useEffect(() => {
     if (executedRef.current) { return }

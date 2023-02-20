@@ -18,14 +18,14 @@ export default function Home() {
   const [endNum, setEndNum] = useState<number>(end);
 
 
-  const loadPostData = useCallback(() => {async () => {
+  const loadPostData =async () => {
     const postsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/posts`)
     setLoading(true)
     setPosts(postsData.slice(0, endNum))
     if (posts.length === 100) {
       setLoading(false)
     }
-  }},[])
+  }
   const loadOtherData = async () => {
     const commentsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/comments`)
     const usersData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/users`);
@@ -40,7 +40,7 @@ export default function Home() {
 
     loadPostData()
    
-  }, [ posts.length,endNum,loadPostData]);
+  }, [ endNum,loadPostData]);
 
   console.log(posts)
   console.log("users", users)

@@ -30,11 +30,11 @@ interface CardsProps {
     detail: "none"
   })
 
-  const showDetail = () => {
+  const showDetail = (id:number|null) => {
     if (postCard.main === "block") {
       setPostCard({ main: "none", detail: "block" })
       onClick()
-  
+      console.log(id)
     } else {
       setPostCard({ main: "block", detail: "none" })
     }
@@ -56,7 +56,7 @@ interface CardsProps {
           </Typography>
         </CardContent>
         <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button size="small" onClick={showDetail}>Learn More</Button>
+          <Button size="small" onClick={()=>showDetail(cardPost.id)}>Learn More</Button>
         </CardActions>
       </div>
       <div style={{ display: postCard.detail }}>
@@ -89,7 +89,7 @@ interface CardsProps {
           </Box>
         </CardContent>
         <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button size="small" onClick={showDetail}>Close</Button>
+          <Button size="small" onClick={()=>showDetail(cardPost.id)}>Close</Button>
         </CardActions>
       </div>
     </Card>

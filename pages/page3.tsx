@@ -1,25 +1,27 @@
 import Head from "next/head";
-import { useEffect, useState, useRef, useCallback } from "react";
-import { iPosts, iComments, iUsers } from "@/utility/type";
+import { useState, useRef, useCallback } from "react";
+import { iPosts } from "@/utility/type";
 import { BasicCards } from "@/components/BasicCards2";
 import { Container } from "@mui/material";
 import { loadDataApi } from "@/pages/api/loadData";
 import TogglePageButton from "@/components/nav";
 import ProgressBar from "@/components/Progress";
 
-export default function Home() {
-  const [posts, setPosts] = useState<iPosts[]>([]);
-  const [comments, setComments] = useState<iComments[]>([]);
-  const [users, setUsers] = useState<iUsers[]>([]);
+export const getStaticProps = async () => {
+  const postsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/posts`);
+  return {
+    props: {
+      posts: postsData.slice(0, 20),
+    },
+  };
+};
+
+export default function Home({ posts }: any) {
+  const [allPosts, setAllPosts] = useState<iPosts[]>(posts);
   const [loading, setLoading] = useState<boolean>(false);
-  const executedRef = useRef(false);
   const loadAllData = async () => {
     const postsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/posts`);
-    const commentsData = await loadDataApi(
-      `${process.env.NEXT_PUBLIC_API}/comments`
-    );
-    const usersData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/users`);
-    setLoading(true);
+    setLoading(false);
     const Generate20Posts = () => {
       for (let i = 0; i < 20; i++) {
         posts.push(postsData[id++]);
@@ -27,39 +29,30 @@ export default function Home() {
     };
     let id = posts.length;
     if (posts.length < 100) {
-      Generate20Posts();
-      return;
+        Generate20Posts();
+      return
     } else if (posts.length === 100) {
       setLoading(false);
     }
-
-    setComments(commentsData);
-    setUsers(usersData);
   };
-
-  useEffect(() => {
-    if (executedRef.current) {
-      return;
-    }
-    loadAllData();
-    executedRef.current = true;
-  }, []);
-
   const observer = useRef<IntersectionObserver | null>(null);
-  const lastBookElementRef = useCallback((node: any) => {
-    if (loading) return;
-    if (observer.current) observer.current.disconnect();
-    observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        setLoading(false);
-        setTimeout(() => {
-          loadAllData();
-        }, 300);
-        setLoading(true);
-      }
-    });
-    if (node) observer.current.observe(node);
-  }, []);
+  const lastBookElementRef = useCallback(
+    (node: any) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setLoading(false);
+          setTimeout(() => {
+            loadAllData();
+          }, 500);
+          setLoading(true);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [allPosts]
+  );
 
   return (
     <Container sx={{ paddingTop: 5, addingLeft: 100, paddingRight: 100 }}>
@@ -71,8 +64,11 @@ export default function Home() {
       </Head>
       <div>
         <TogglePageButton />
-        <p> {!loading && "Loading..."}</p>
-        <BasicCards cardList={posts} lastBookElementRef={lastBookElementRef} />
+        <p> {loading && "Loading..."}</p>
+        <BasicCards
+          cardList={allPosts}
+          lastBookElementRef={lastBookElementRef}
+        />
         <div
           style={{
             display: "flex",

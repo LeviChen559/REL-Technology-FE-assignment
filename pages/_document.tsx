@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-          {/* Add your Google Analytics tracking code here */}
+          {/* Add your Google Analytics tracking code here
           <Script
             async
             src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"
@@ -18,7 +18,7 @@ export default function Document() {
               gtag('config', 'GA_MEASUREMENT_ID');
             `,
             }}
-          ></script>
+          ></script> */}
         </Head>
       <body>
         <Main />

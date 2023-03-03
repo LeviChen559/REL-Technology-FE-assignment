@@ -12,13 +12,7 @@ import {iPosts, iUsers,iComments} from "../../utility/type/index"
 export const getStaticPaths=async()=>{
   const postsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/posts`)
   console.log('postsData:', postsData);
-  let pathIds=[]
-  for(let i=0;i<postsData.length.slice(0,10);i++){
-    pathIds.push(postsData[i].id.toString())
-  }
-  console.log(pathIds)
-
-  const paths=pathIds.map((pathId:string)=>({ params: { id:pathId } }))
+  const paths=postsData.map((post:iPosts)=>({ params: { id:post.id.toString() } }))
   return{
     paths,
     fallback:false

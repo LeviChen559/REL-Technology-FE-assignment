@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 const option = {
   method: 'GET',
@@ -7,8 +7,8 @@ const option = {
     'Accept': 'application/json',
   },
 }
-export const loadDataApi = async (URL:string
-  
+export const loadDataApi = async (URL:string,
+
   ) => {
   try {
     const res = await fetch(URL, option);

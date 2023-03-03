@@ -14,8 +14,9 @@ export default function TogglePageButton() {
 
   return (
     <Stack spacing={2} direction="row">
-      <Button variant={router.pathname=="/page2"?"outlined":"contained"}  onClick={()=>router.push("/")}>Page 1</Button>
-      <Button variant={router.pathname=="/"?"outlined":"contained"} onClick={()=>router.push("/page2")} >Page 2</Button>
+      <Button variant={router.pathname=="/"?"outlined":"contained"}  onClick={()=>router.push("/")}>Page 1</Button>
+      <Button variant={router.pathname=="/page2"?"outlined":"contained"} onClick={()=>router.push("/page2")} >Page 2</Button>
+      <Button variant={router.pathname=="/page3"?"outlined":"contained"} onClick={()=>router.push("/page3")} >Page 3</Button>
      
     </Stack>
   );

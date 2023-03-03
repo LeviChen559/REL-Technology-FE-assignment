@@ -14,11 +14,11 @@ export const getStaticPaths=async()=>{
   console.log('postsData:', postsData);
   let pathIds=[]
   for(let i=0;i<postsData.length;i++){
-    pathIds.push(postsData[i].id)
+    pathIds.push(postsData[i].id.toString())
   }
   console.log(pathIds)
 
-  const paths=pathIds.map((pathId:any)=>({ params: { id:pathId.toString() } }))
+  const paths=pathIds.map((pathId:string)=>({ params: { id:pathId } }))
   return{
     paths,
     fallback:false

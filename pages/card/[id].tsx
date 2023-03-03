@@ -12,7 +12,7 @@ import {iPosts, iUsers,iComments} from "../../utility/type/index"
 export const getStaticPaths=async()=>{
   const postsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/posts`)
   console.log('postsData:', postsData);
-  const paths= postsData.map((post:iPosts)=>{
+  const paths=postsData&&postsData.map((post:iPosts)=>{
     return {
       params:{id:post.id.toString()}
     }
@@ -25,12 +25,12 @@ export const getStaticPaths=async()=>{
 export const getStaticProps=async(context:any)=>{
 
   const id=context.params.id
-  const postsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/posts/`+id)
+  const postsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/posts?id=${id}`)
   const commentsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/comments?postId=${id}`)
    const usersData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/users`);
    let selectUserData = usersData.filter((user: iUsers) => user.id == postsData[0].userId);
   return {
-    props:{posts:postsData, comments:commentsData,users:selectUserData[0]}
+    props:{posts:postsData[0], comments:commentsData,users:selectUserData[0]}
   
   }
 }

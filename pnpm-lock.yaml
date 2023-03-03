@@ -15,6 +15,7 @@ specifiers:
   next: 13.1.6
   react: 18.2.0
   react-dom: 18.2.0
+  react-ga: ^3.3.1
   typescript: 4.9.5
 
 dependencies:
@@ -32,6 +33,7 @@ dependencies:
   next: 13.1.6_pjwopsidmaokadturxaafygjp4
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-ga: 3.3.1_react@18.2.0
   typescript: 4.9.5
 
 packages:
@@ -2527,6 +2529,15 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-ga/3.3.1_react@18.2.0:
+    resolution: {integrity: sha512-4Vc0W5EvXAXUN/wWyxvsAKDLLgtJ3oLmhYYssx+YzphJpejtOst6cbIHCIyF50Fdxuf5DDKqRYny24yJ2y7GFQ==}
+    peerDependencies:
+      prop-types: ^15.6.0
+      react: ^15.6.2 || ^16.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-is/16.13.1:

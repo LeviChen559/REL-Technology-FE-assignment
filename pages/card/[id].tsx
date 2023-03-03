@@ -13,11 +13,7 @@ export const getStaticPaths=async()=>{
   const postsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/posts`)
   console.log('postsData:', postsData);
   if(postsData){
-  const paths=postsData.map((post:iPosts)=>{
-    return {
-      params:{id:post.id.toString()}
-    }
-  })
+  const paths=postsData.map((post:iPosts)=>({ params: { id: post.id.toString() } }))
   return{
     paths,
     fallback:false

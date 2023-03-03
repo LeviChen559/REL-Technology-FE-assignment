@@ -51,7 +51,7 @@ export default function Home({ posts }: any) {
       });
       if (node) observer.current.observe(node);
     },
-    [allPosts]
+    [loading,loadAllData]
   );
 
   return (

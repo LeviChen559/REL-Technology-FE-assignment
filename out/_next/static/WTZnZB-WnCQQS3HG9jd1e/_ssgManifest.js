@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fcard\u002F[id]","\u002Fpage3"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()

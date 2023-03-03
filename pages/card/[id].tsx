@@ -33,7 +33,9 @@ export const getStaticProps=async(context:any)=>{
   
   }
 }
+
 export default function CardDetail({posts,comments,users}:any) {
+  
     const router=useRouter()
     // const {id} = router.query;
     // const [posts, setPosts] = useState<iPosts>({id:0,userId:0,title:"",body:""})
@@ -76,7 +78,7 @@ if (posts===null){
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
         {posts.body}
         </Typography>
-        {comments.map((comment:iComments)=>{  
+        {comments&&comments.map((comment:iComments)=>{  
           return  <Box key={comment.id} sx={{margin:2}}>
         <Typography variant="body1" sx={{fontWeight:700}}> 
           {comment.name}

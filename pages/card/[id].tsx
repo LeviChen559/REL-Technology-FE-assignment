@@ -10,7 +10,8 @@ import { loadDataApi } from '@/pages/api/loadData';
 import { iPosts, iUsers, iComments } from "../../utility/type/index"
 
 export const getStaticPaths = async () => {
-  const postsData = await loadDataApi(`${process.env.NEXT_PUBLIC_API}/posts`)
+  const res = await fetch(`https://jsonplaceholder.typicode.com/posts`)
+  const postsData=await res.json()
   const paths = postsData.map((post: iPosts) => ({ params: { id: post.id.toString() } }));
   return { paths, fallback: false }
 }

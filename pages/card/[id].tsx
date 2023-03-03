@@ -14,7 +14,7 @@ export const getStaticPaths=async()=>{
   console.log('postsData:', postsData);
   let pathIds=[]
   for(let i=0;i<postsData.length;i++){
-    pathIds.push({id:postsData[i].id})
+    pathIds.push(postsData[i].id)
   }
   console.log(pathIds)
 
